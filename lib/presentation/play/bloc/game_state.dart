@@ -16,7 +16,5 @@ sealed class GameState with _$GameState {
     required double duration,
     required RunEndedReason reason,
   }) = GameGameOver;
-  const factory GameState.error({
-    required String message,
-  }) = GameError;
+  const factory GameState.error({required String message}) = GameError;
 }

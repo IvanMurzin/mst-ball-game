@@ -21,18 +21,14 @@ class GameOverPanel extends StatelessWidget {
           child: Padding(
             padding: DSSpacing.page,
             child: DSCard(
+              padding: const EdgeInsets.symmetric(horizontal: 56, vertical: 16),
               child: Column(
-                mainAxisSize: MainAxisSize.min,
                 children: [
                   const DSSectionTitle('Game Over'),
                   const SizedBox(height: DSSpacing.s12),
                   Text('Score: ${state.finalScore.floor()}'),
-                  Text('Time: ${state.duration.toStringAsFixed(1)}s'),
                   const SizedBox(height: DSSpacing.s16),
-                  DSButton(
-                    label: 'Retry',
-                    onPressed: () => context.read<GameCubit>().retry(),
-                  ),
+                  DSButton(label: 'Retry', onPressed: () => context.read<GameCubit>().retry()),
                 ],
               ),
             ),

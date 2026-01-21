@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:ball_game/core/local_storage/game_scores_storage.dart';
 import 'package:ball_game/core/logger/logger.dart';
 import 'package:ball_game/domain/ball_runner/entity/ball_entity.dart';
 import 'package:ball_game/domain/ball_runner/entity/platform_entity.dart';
@@ -23,12 +24,14 @@ class GameCubit extends Cubit<GameState> {
     this._tickRunUseCase,
     this._jumpUseCase,
     this._endRunUseCase,
+    this._gameScoresStorage,
   ) : super(const GameState.idle());
 
   final StartRunUseCase _startRunUseCase;
   final TickRunUseCase _tickRunUseCase;
   final JumpUseCase _jumpUseCase;
   final EndRunUseCase _endRunUseCase;
+  final GameScoresStorage _gameScoresStorage;
 
   Timer? _ticker;
   final Stopwatch _stopwatch = Stopwatch();
@@ -55,10 +58,7 @@ class GameCubit extends Cubit<GameState> {
       _stopwatch.start();
       _lastTick = Duration.zero;
 
-      final result = _startRunUseCase(
-        fieldWidth: _fieldSize.width,
-        fieldHeight: _fieldSize.height,
-      );
+      final result = _startRunUseCase(fieldWidth: _fieldSize.width, fieldHeight: _fieldSize.height);
       emit(
         GameState.running(
           ballY: result.ball.y,
@@ -70,16 +70,9 @@ class GameCubit extends Cubit<GameState> {
         ),
       );
 
-      logger.i({
-        'event': 'run_start',
-        'width': _fieldSize.width,
-        'height': _fieldSize.height,
-      });
+      logger.i({'event': 'run_start', 'width': _fieldSize.width, 'height': _fieldSize.height});
 
-      _ticker = Timer.periodic(
-        const Duration(milliseconds: 16),
-        (_) => _onTick(),
-      );
+      _ticker = Timer.periodic(const Duration(milliseconds: 16), (_) => _onTick());
     } catch (error, stackTrace) {
       _stop();
       logger.e('run_start_error', error: error, stackTrace: stackTrace);
@@ -160,6 +153,7 @@ class GameCubit extends Cubit<GameState> {
           duration: result.elapsed,
           reason: result.endReason ?? RunEndedReason.fell,
         );
+        unawaited(_gameScoresStorage.appendScore(runResult.score.floor()));
         emit(
           GameState.gameOver(
             finalScore: runResult.score,

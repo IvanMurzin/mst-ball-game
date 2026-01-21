@@ -16,9 +16,7 @@ class ChallengesPage extends StatelessWidget {
           children: const [
             DSSectionTitle('Upcoming challenges'),
             SizedBox(height: DSSpacing.s12),
-            DSCard(
-              child: Text('New challenge modes will appear here.'),
-            ),
+            DSCard(child: Text('New challenge modes will appear here.')),
           ],
         ),
       ),

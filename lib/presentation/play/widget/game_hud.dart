@@ -14,23 +14,18 @@ class GameHud extends StatelessWidget {
       builder: (context, state) {
         final isIdle = state is GameIdle || state is GameError;
         final score = state.maybeWhen(
-          running: (
-            ballY,
-            ballVelocityY,
-            grounded,
-            platforms,
-            score,
-            elapsed,
-          ) =>
-              score,
+          running:
+              (ballY, ballVelocityY, grounded, platforms, score, elapsed) =>
+                  score,
           orElse: () => 0.0,
         );
 
         return DSCard(
+          padding: const EdgeInsets.symmetric(horizontal: 56, vertical: 16),
           child: isIdle
               ? Column(
                   mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const _HudValue(
                       label: 'Tap to jump',
@@ -43,10 +38,7 @@ class GameHud extends StatelessWidget {
                     ),
                   ],
                 )
-              : _HudValue(
-                  label: 'Score',
-                  value: score.floor().toString(),
-                ),
+              : _HudValue(label: 'Score', value: score.floor().toString()),
         );
       },
     );
@@ -63,7 +55,7 @@ class _HudValue extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(label, style: textTheme.labelMedium),
         Text(value, style: textTheme.titleMedium),

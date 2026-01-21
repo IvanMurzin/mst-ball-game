@@ -8,7 +8,7 @@ part 'settings_state.dart';
 @injectable
 class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit()
-      : super(const SettingsState(soundEnabled: true, vibrationEnabled: true));
+    : super(const SettingsState(soundEnabled: true, vibrationEnabled: true));
 
   void toggleSound(bool value) {
     emit(state.copyWith(soundEnabled: value));

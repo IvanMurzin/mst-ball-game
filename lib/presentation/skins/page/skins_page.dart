@@ -16,9 +16,7 @@ class SkinsPage extends StatelessWidget {
           children: const [
             DSSectionTitle('Skins'),
             SizedBox(height: DSSpacing.s12),
-            DSCard(
-              child: Text('Unlockable skins will be shown here.'),
-            ),
+            DSCard(child: Text('Unlockable skins will be shown here.')),
           ],
         ),
       ),

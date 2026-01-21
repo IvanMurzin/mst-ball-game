@@ -47,9 +47,7 @@ class SettingsPage extends StatelessWidget {
               const SizedBox(height: DSSpacing.s24),
               const DSSectionTitle('About'),
               const SizedBox(height: DSSpacing.s12),
-              const DSCard(
-                child: Text('Ball Runner MVP with basic jump and platforms.'),
-              ),
+              const DSCard(child: Text('Ball Runner MVP with basic jump and platforms.')),
               const SizedBox(height: DSSpacing.s16),
               DSButton(
                 label: 'Design system preview',

@@ -28,15 +28,9 @@ class _GameFieldState extends State<GameField> {
         return BlocBuilder<GameCubit, GameState>(
           builder: (context, state) {
             final data = state.maybeWhen(
-              running: (
-                ballY,
-                ballVelocityY,
-                grounded,
-                platforms,
-                score,
-                elapsed,
-              ) =>
-                  (ballY, platforms),
+              running:
+                  (ballY, ballVelocityY, grounded, platforms, score, elapsed) =>
+                      (ballY, platforms),
               orElse: () => (null, <PlatformEntity>[]),
             );
             final ballY = data.$1;

@@ -4,9 +4,6 @@ part 'ball_entity.freezed.dart';
 
 @freezed
 abstract class BallEntity with _$BallEntity {
-  const factory BallEntity({
-    required double y,
-    required double velocityY,
-    required bool grounded,
-  }) = _BallEntity;
+  const factory BallEntity({required double y, required double velocityY, required bool grounded}) =
+      _BallEntity;
 }

@@ -11,10 +11,7 @@ import 'package:ball_game/presentation/stats/page/stats_page.dart';
 final appRouter = GoRouter(
   initialLocation: AppRoutes.play,
   routes: [
-    GoRoute(
-      path: AppRoutes.root,
-      redirect: (context, state) => AppRoutes.play,
-    ),
+    GoRoute(path: AppRoutes.root, redirect: (context, state) => AppRoutes.play),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         return AppShellPage(navigationShell: navigationShell);
