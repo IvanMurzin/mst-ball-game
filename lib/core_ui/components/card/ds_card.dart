@@ -15,6 +15,7 @@ class DSCard extends StatelessWidget {
       child: Padding(
         padding: padding ?? const EdgeInsets.all(DSSpacing.s16),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (header != null) ...[
