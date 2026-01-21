@@ -58,24 +58,21 @@ class SettingsPage extends StatelessWidget {
                           variant: mode == ThemeMode.system
                               ? DSButtonVariant.primary
                               : DSButtonVariant.secondary,
-                          onPressed: () =>
-                              context.read<ThemeModeCubit>().set(ThemeMode.system),
+                          onPressed: () => context.read<ThemeModeCubit>().set(ThemeMode.system),
                         ),
                         DSButton(
                           label: 'Light',
                           variant: mode == ThemeMode.light
                               ? DSButtonVariant.primary
                               : DSButtonVariant.secondary,
-                          onPressed: () =>
-                              context.read<ThemeModeCubit>().set(ThemeMode.light),
+                          onPressed: () => context.read<ThemeModeCubit>().set(ThemeMode.light),
                         ),
                         DSButton(
                           label: 'Dark',
                           variant: mode == ThemeMode.dark
                               ? DSButtonVariant.primary
                               : DSButtonVariant.secondary,
-                          onPressed: () =>
-                              context.read<ThemeModeCubit>().set(ThemeMode.dark),
+                          onPressed: () => context.read<ThemeModeCubit>().set(ThemeMode.dark),
                         ),
                       ],
                     ),

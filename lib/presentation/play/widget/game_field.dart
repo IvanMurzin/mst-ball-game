@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ball_game/core/types/ball_skin.dart';
 import 'package:ball_game/domain/ball_runner/entity/platform_entity.dart';
 import 'package:ball_game/presentation/play/bloc/game_cubit.dart';
+import 'package:ball_game/presentation/skins/bloc/skins_cubit.dart';
 
 class GameField extends StatefulWidget {
   const GameField({super.key});
@@ -27,6 +29,11 @@ class _GameFieldState extends State<GameField> {
 
         return BlocBuilder<GameCubit, GameState>(
           builder: (context, state) {
+            final skinState = context.watch<SkinsCubit>().state;
+            final selectedSkin = skinState.maybeWhen(
+              ready: (selected) => selected,
+              orElse: () => BallSkin.blue,
+            );
             final data = state.maybeWhen(
               running:
                   (ballY, ballVelocityY, grounded, platforms, score, elapsed) =>
@@ -36,6 +43,7 @@ class _GameFieldState extends State<GameField> {
             final ballY = data.$1;
             final platforms = data.$2;
             final scheme = Theme.of(context).colorScheme;
+            final ballColor = _skinToColor(selectedSkin);
 
             return GestureDetector(
               behavior: HitTestBehavior.opaque,
@@ -44,9 +52,9 @@ class _GameFieldState extends State<GameField> {
                 painter: GameFieldPainter(
                   ballY: ballY,
                   platforms: platforms,
-                  backgroundColor: scheme.surfaceVariant,
+                  backgroundColor: scheme.surfaceContainerHighest,
                   platformColor: scheme.primary,
-                  ballColor: scheme.secondary,
+                  ballColor: ballColor,
                 ),
                 size: Size.infinite,
               ),
@@ -55,6 +63,14 @@ class _GameFieldState extends State<GameField> {
         );
       },
     );
+  }
+
+  Color _skinToColor(BallSkin skin) {
+    return switch (skin) {
+      BallSkin.blue => Colors.blue,
+      BallSkin.red => Colors.red,
+      BallSkin.green => Colors.green,
+    };
   }
 }
 
