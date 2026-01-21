@@ -1,3 +1,5 @@
+https://github.com/user-attachments/assets/64d06516-d1c5-49d9-b797-48108ddb53e2
+
 ## Ball Game
 
 Небольшая аркада на Flutter про шарик: игра, скины, статистика и настройки. Проект сделан в слоистой архитектуре с feature-based структурой.
